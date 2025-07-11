@@ -1,4 +1,4 @@
-package dayone;
+package javacore;
 
 import java.util.Scanner;
 
