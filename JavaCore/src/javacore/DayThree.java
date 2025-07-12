@@ -20,8 +20,8 @@ public class DayThree {
 		}
 		System.out.println("Tổng số sinh viên được tạo là:" + Student.count);
 		Rectangle rectangle = new Rectangle(3, 5);
-		rectangle.getArea(rectangle);
-		rectangle.getPerimeter(rectangle);
+		Rectangle.getArea(rectangle);
+		Rectangle.getPerimeter(rectangle);
 		new PIExample(4);
 	}
 
@@ -32,7 +32,6 @@ public class DayThree {
 		int age;
 
 		public Student(String id, String name, int age) {
-			super();
 			count++;
 			this.id = id;
 			this.name = name;
