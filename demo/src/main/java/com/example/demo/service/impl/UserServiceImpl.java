@@ -1,10 +1,15 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.RoleDTO;
+import com.example.demo.dto.UserDTO;
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
@@ -13,40 +18,46 @@ import com.example.demo.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserRepository repository;
+	private UserRepository repository;
 
 	@Override
-	public List<User> getAllUser() {
-		return repository.findAll();
+	public List<UserDTO> getAllUser() {
+		return repository.findAll().stream().map(UserDTO::fromEntity).collect(Collectors.toList());
 	}
 
 	@Override
-	public User getUserById(Long id) {
-		return repository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+	public UserDTO getUserById(Long id) {
+		User user = repository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+		return UserDTO.fromEntity(user);
 	}
 
 	@Override
-	public User createUser(User user) {
-		return repository.save(null);
+	public UserDTO createUser(UserDTO userDto) {
+		User saved = repository.save(userDto.toEntity());
+		return UserDTO.fromEntity(saved);
 	}
 
 	@Override
-	public User updateUser(Long id, User user) {
-		User updateUser = getUserById(id);
-		updateUser.setFullName(user.getFullName());
-		updateUser.setUsername(user.getUsername());
-		updateUser.setEmail(user.getEmail());
-		updateUser.setEnabled(user.isEnabled());
-		updateUser.setPassword(user.getPassword());
-		updateUser.setRoles(user.getRoles());
+	public UserDTO updateUser(Long id, UserDTO userDto) {
+		User updateUser = repository.findById(id)
+				.orElseThrow(() -> new RuntimeException("User not found with id: " + id));
 
-		return repository.save(updateUser);
+		updateUser.setFullName(userDto.getFullName());
+		updateUser.setUsername(userDto.getUsername());
+		updateUser.setEmail(userDto.getEmail());
+		updateUser.setEnabled(userDto.isEnabled());
+		updateUser.setPassword(userDto.getPassword());
+		Set<Role> roleEntities = userDto.getRoles().stream().map(RoleDTO::toEntity).collect(Collectors.toSet());
+
+		updateUser.setRoles(roleEntities);
+
+		User updated = repository.save(updateUser);
+		return UserDTO.fromEntity(updated);
 	}
 
 	@Override
 	public void deleteUser(Long id) {
 		repository.deleteById(id);
-
 	}
 
 }

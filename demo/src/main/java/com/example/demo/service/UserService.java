@@ -2,16 +2,16 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.entity.User;
+import com.example.demo.dto.UserDTO;
 
 public interface UserService {
-	List<User> getAllUser();
+	List<UserDTO> getAllUser();
 
-	User getUserById(Long id);
+	UserDTO getUserById(Long id);
 
-	User createUser(User user);
+	UserDTO createUser(UserDTO UserDTO);
 
-	User updateUser(Long id, User user);
+	UserDTO updateUser(Long id, UserDTO userDto);
 
 	void deleteUser(Long id);
 

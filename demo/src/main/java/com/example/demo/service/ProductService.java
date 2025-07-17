@@ -2,17 +2,17 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.entity.Product;
+import com.example.demo.dto.ProductDTO;
 
 public interface ProductService {
 
-	List<Product> getAllProducts();
+	List<ProductDTO> getAllProducts();
 
-	Product getProductById(Long id);
+	ProductDTO getProductById(Long id);
 
-	Product createProduct(Product product);
+	ProductDTO createProduct(ProductDTO productDTO);
 
-	Product updateProduct(Long id, Product product);
+	ProductDTO updateProduct(Long id, ProductDTO productDTO);
 
 	void deleteProduct(Long id);
 }
