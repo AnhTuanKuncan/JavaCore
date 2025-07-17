@@ -1,4 +1,4 @@
-package com.example.demo.errors;
+package com.example.demo.exception;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
