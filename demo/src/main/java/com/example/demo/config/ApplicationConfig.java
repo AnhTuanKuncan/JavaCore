@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,7 +19,8 @@ import com.example.demo.repository.UserRepository;
 
 public class ApplicationConfig {
 
-	private final UserRepository userRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	public ApplicationConfig(UserRepository userRepository) {
 		this.userRepository = userRepository;

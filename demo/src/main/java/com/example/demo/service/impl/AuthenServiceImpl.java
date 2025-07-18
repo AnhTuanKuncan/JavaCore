@@ -19,7 +19,8 @@ public class AuthenServiceImpl implements AuthenService {
 	@Autowired
 	JwtProvider jwtProvider;
 	
-	private final PasswordEncoder passwordEncoder = null;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Override
 	public String login(AuthenticationRequest authenticationRequest) {
