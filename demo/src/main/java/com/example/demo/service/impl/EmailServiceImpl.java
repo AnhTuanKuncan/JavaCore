@@ -3,10 +3,12 @@ package com.example.demo.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.EmailRequest;
 import com.example.demo.service.EmailService;
 
+@Service
 public class EmailServiceImpl implements EmailService {
 	@Autowired
 	JavaMailSender mailSender;
